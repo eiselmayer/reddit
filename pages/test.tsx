@@ -7,8 +7,16 @@ import Reddit, { Submission } from 'snoowrap';
 import ReactPlayer from 'react-player'
 
 const renderVideo = (submission: Submission): JSX.Element => {
+  const {
+    // @ts-ignore
+    width,
+    height,
+    fallback_url,
+  } = submission.media.reddit_video;
   return (
-    <ReactPlayer url={submission.media.reddit_video.hls_url} playing />
+      <video controls width={width} height={height}>
+        <source src={fallback_url}></source>
+      </video>
   )
 }
 
