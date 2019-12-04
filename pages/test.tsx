@@ -12,12 +12,15 @@ const renderVideo = (submission: Submission): JSX.Element => {
     // @ts-ignore
     width,
     height,
-    fallback_url
+    hls_url,
   } = submission.media.reddit_video;
   return (
-    <video controls width={width} height={height}>
-      <source src={fallback_url}></source>
-    </video>
+    <ReactPlayer
+      url={hls_url}
+      controls
+      width={width}
+      height={height}
+    />
   );
 };
 
@@ -47,7 +50,7 @@ const renderText = (submission: Submission): JSX.Element => {
   return <p>{renderHTML(entities.decode(submission.selftext_html))}</p>;
 };
 
-const getPosts = (posts: Submission[]) => {
+export const getPosts = (posts: Submission[]) => {
   return posts.map((wrapper, idx) => {
     // image, link, hosted_video
     let content: JSX.Element;
@@ -65,7 +68,7 @@ const getPosts = (posts: Submission[]) => {
         content = renderText(wrapper);
     }
 
-    console.log(wrapper);
+    // console.log(wrapper);
     return (
       <div key={idx}>
         <h2>
