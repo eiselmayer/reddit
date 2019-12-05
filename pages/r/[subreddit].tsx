@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { getPosts } from "../test";
-import connectReddit from "../../utils/connect-reddit";
+import connectReddit from "../../src/utils/connect-reddit";
 
 const SubReddit = ({ posts }) => {
   const router = useRouter();

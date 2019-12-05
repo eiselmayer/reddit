@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { sampleFetchWrapper } from "../utils/sample-api";
-import { SubRedditData, PostWrapper } from "../types/SubReddit.type";
+import { sampleFetchWrapper } from "../src/utils/sample-api";
+import { SubRedditData, PostWrapper } from "../src/types/SubReddit.type";
 import renderHTML from "react-render-html";
 import { AllHtmlEntities } from "html-entities";
 import Reddit, { Submission } from "snoowrap";
 import ReactPlayer from "react-player";
-import connectReddit from "../utils/connect-reddit";
+import connectReddit from "../src/utils/connect-reddit";
 
 const renderVideo = (submission: Submission): JSX.Element => {
   const {
