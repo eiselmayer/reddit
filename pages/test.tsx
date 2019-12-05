@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { sampleFetchWrapper } from "../src/utils/sample-api";
-import { SubRedditData, PostWrapper } from "../src/types/SubReddit.type";
-import renderHTML from "react-render-html";
-import { AllHtmlEntities } from "html-entities";
-import Reddit, { Submission } from "snoowrap";
-import ReactPlayer from "react-player";
-import connectReddit from "../src/utils/connect-reddit";
+import React, { useState } from 'react';
+import renderHTML from 'react-render-html';
+import { AllHtmlEntities } from 'html-entities';
+import Reddit, { Submission } from 'snoowrap';
+import ReactPlayer from 'react-player';
+import connectReddit from '../src/utils/connect-reddit';
 
 const renderVideo = (submission: Submission): JSX.Element => {
   const {
@@ -24,61 +22,63 @@ const renderVideo = (submission: Submission): JSX.Element => {
   );
 };
 
-const renderLink = (submission: Submission): JSX.Element => {
-  return (
-    <a href={submission.url} target="_blank">
-      {submission.url}
-    </a>
-  );
-};
+const renderLink = (submission: Submission): JSX.Element => (
+  <a href={submission.url} target="_blank" rel="noreferrer noopener">
+    {submission.url}
+  </a>
+);
 
-const renderImage = (submission: Submission): JSX.Element => {
-  return (
-    <div>
-      <img className="image" src={submission.url} />
-      <style jsx>{`
+const renderImage = (submission: Submission): JSX.Element => (
+  <div>
+    <img className="image" src={submission.url} />
+    <style jsx>
+      {`
         .image {
           max-width: 100%;
         }
-      `}</style>
-    </div>
-  );
-};
+      `}
+    </style>
+  </div>
+);
 
 const renderText = (submission: Submission): JSX.Element => {
   const entities = new AllHtmlEntities();
   return <p>{renderHTML(entities.decode(submission.selftext_html))}</p>;
 };
 
-export const getPosts = (posts: Submission[]) => {
-  return posts.map((wrapper, idx) => {
-    // image, link, hosted_video
-    let content: JSX.Element;
-    switch (wrapper.post_hint) {
-      case "image":
-        content = renderImage(wrapper);
-        break;
-      case "link":
-        content = renderLink(wrapper);
-        break;
-      case "hosted:video":
-        content = renderVideo(wrapper);
-        break;
-      default:
-        content = renderText(wrapper);
-    }
+export const getPosts = (posts: Submission[]) => posts.map((wrapper, idx) => {
+  // image, link, hosted_video
+  let content: JSX.Element;
+  switch (wrapper.post_hint) {
+    case 'image':
+      content = renderImage(wrapper);
+      break;
+    case 'link':
+      content = renderLink(wrapper);
+      break;
+    case 'hosted:video':
+      content = renderVideo(wrapper);
+      break;
+    default:
+      content = renderText(wrapper);
+  }
 
-    // console.log(wrapper);
-    return (
-      <div key={idx}>
-        <h2>
-          ({wrapper.score}) - ({wrapper.post_hint}) - {wrapper.title}
-        </h2>
-        {content}
-      </div>
-    );
-  });
-};
+  // console.log(wrapper);
+  return (
+    <div key={idx}>
+      <h2>
+                (
+        {wrapper.score}
+                ) - (
+        {wrapper.post_hint}
+                ) -
+        {' '}
+        {wrapper.title}
+      </h2>
+      {content}
+    </div>
+  );
+});
 
 const Test = () => {
   const [subReddit, setSubReddit] = useState();
@@ -100,18 +100,23 @@ const Test = () => {
         <h1>Test </h1>
         <input
           type="text"
-          onChange={event => setSubReddit(event.target.value)}
-        ></input>
+          onChange={(event) => setSubReddit(event.target.value)}
+        />
         <button onClick={getData}>Get Data</button>
-        <p>{loading && "loading ..."} </p>
+        <p>
+          {loading && 'loading ...'}
+          {' '}
+        </p>
         <div>{getPosts(posts)}</div>
       </div>
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .content {
           width: 80%;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };
