@@ -28,5 +28,12 @@ module.exports = {
     ],
     "rules": {
         "import/no-unresolved": 0,
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", {
+            "vars": "all",
+            "args": "after-used",
+            "ignoreRestSiblings": false
+        }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     }
 };

@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import { getPosts } from "../test";
-import connectReddit from "../../src/utils/connect-reddit";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { Submission } from 'snoowrap';
+import { getPosts } from '../test';
+import connectReddit from '../../src/utils/connect-reddit';
 
-const SubReddit = ({ posts }) => {
+const SubReddit = ({ posts }: {posts: Submission[]}) => {
   const router = useRouter();
   const { subreddit } = router.query;
-  const api = connectReddit();
 
   return (
     <div>
       <div className="content">
-        <h1>SubReddit {router.query.subreddit}</h1>
+        <h1>
+          SubReddit
+          {subreddit}
+        </h1>
         <div>{getPosts(posts)}</div>
       </div>
     </div>

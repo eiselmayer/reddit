@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import renderHTML from 'react-render-html';
 import { AllHtmlEntities } from 'html-entities';
-import Reddit, { Submission } from 'snoowrap';
+import { Submission } from 'snoowrap';
 import ReactPlayer from 'react-player';
 import connectReddit from '../src/utils/connect-reddit';
 
@@ -10,11 +10,11 @@ const renderVideo = (submission: Submission): JSX.Element => {
     // @ts-ignore
     width,
     height,
-    hls_url,
+    hls_url: hlsUrl,
   } = submission.media.reddit_video;
   return (
     <ReactPlayer
-      url={hls_url}
+      url={hlsUrl}
       controls
       width={width}
       height={height}
@@ -30,7 +30,7 @@ const renderLink = (submission: Submission): JSX.Element => (
 
 const renderImage = (submission: Submission): JSX.Element => (
   <div>
-    <img className="image" src={submission.url} />
+    <img className="image" src={submission.url} alt="" />
     <style jsx>
       {`
         .image {
@@ -46,7 +46,7 @@ const renderText = (submission: Submission): JSX.Element => {
   return <p>{renderHTML(entities.decode(submission.selftext_html))}</p>;
 };
 
-export const getPosts = (posts: Submission[]) => posts.map((wrapper, idx) => {
+export const getPosts = (posts: Submission[]) => posts.map((wrapper) => {
   // image, link, hosted_video
   let content: JSX.Element;
   switch (wrapper.post_hint) {
@@ -65,7 +65,7 @@ export const getPosts = (posts: Submission[]) => posts.map((wrapper, idx) => {
 
   // console.log(wrapper);
   return (
-    <div key={idx}>
+    <div key={wrapper.id}>
       <h2>
                 (
         {wrapper.score}
