@@ -1,13 +1,25 @@
-import Reddit from "snoowrap";
+import Reddit from 'snoowrap';
+import redditConfig from '../config/reddit';
 
 const connectReddit = () => {
-    return new Reddit({
-        userAgent: "Sample", // can be empty in browser
-        clientId: "kGIauqfm0O94rg",
-        clientSecret: "Y0_dTxb6UAeQrgn2Xv9ERSgmvlo",
-        username: "gingerin0",
-        password: "A&lexander7395"
-      });
-}
+  const {
+    clientId,
+    clientSecret,
+    username,
+    password,
+  } = redditConfig;
+
+  if (!clientId || !clientSecret || !username || !password) {
+    throw new Error('Please fill out the config file.');
+  }
+
+  return new Reddit({
+    userAgent: 'Sample', // can be empty in browser
+    clientId,
+    clientSecret,
+    username,
+    password,
+  });
+};
 
 export default connectReddit;
